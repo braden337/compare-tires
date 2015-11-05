@@ -2,12 +2,12 @@ var field = [$("#width"), $("#height"), $("#diameter")];
 var focused = field[0]; //this is just to have a starting point
 var position = 0;
 
-//$(".output").html("");
 
 $("input").on("keyup", function(){
   var length = $(this).val().length;
-  //$(".output").html(length);
-  if(length == 3) {
+  var max = $(this).attr("maxlength");
+  
+  if(length == max) {
     position += 1;
     field[position].trigger('touchstart');
     
