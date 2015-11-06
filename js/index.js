@@ -1,34 +1,48 @@
-var field = [$("#width"), $("#height"), $("#diameter")];
-var focused = field[0]; //this is just to have a starting point
+/* Variables */
+
+var field = ["#width", "#height", "#diameter"];
 var position = 0;
 
+/* Events */
 
-$("input").on("keyup", function(){
+$("input[type=tel]").on("keyup", function(){
   var length = $(this).val().length;
   var max = $(this).attr("maxlength");
+  var lastField = field.length-1;
   
-  if(length == max) {
+  if(length == max && position < lastField) {
     position += 1;
-    field[position].trigger('touchstart');
-    
+    $(field[position]).focus();
+  }
+  else if (length == max && position == lastField) {
+    $(this).blur();
+    $("button#reset").focus();
   }
 });
 
-$('input').on('touchstart', function () {
-    field[position].focus();
-    field[position].select();
+$('input[type=tel]').on('touchstart', function () {
+    $(field[position]).focus();
 });
 
-field[0].on("focus", function(){
-  position = 0;
+
+// This clears the input on focus and sets the position variable to the index of the current field that's focused
+$("input[type=tel]").on("focus", function(){
+  $(this).val('');
+  var currentField = field.indexOf("#" + $(this).attr('id'));
+  position = currentField;
 });
 
-$("input").on("focus", function(){
-  // $(this).select();
+//clears the input when you click
+$("input[type=tel]").on("click", function(){
   $(this).val('');
 });
 
-$("button").click(function(){
-  $('input').val('');
-  field[0].focus();
+$("button#reset").click(function(){
+  $("input[type=tel]").val('');
+  $(field[0]).focus();
+  $("#reset").blur();
+});
+
+$("form").submit(function(event){
+  event.preventDefault();
 });
