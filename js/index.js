@@ -7,65 +7,85 @@ var numCompared = 2;
 
 /* Events */
 
-$("input[type=tel]").on("keyup", function(){
+$("form").on("keyup", "input[type=tel]", function(){
   var length = $(this).val().length;
   var max = $(this).attr("maxlength");
   var lastField = field.length-1;
-  console.log("lastField " + lastField + " position " + position);
+  //console.log("lastField " + lastField + " position " + position);
   
-  if(length == max && position < lastField) {
+  if (length == max && position < lastField) {
     position += 1;
-    $(field[position]).trigger('touchstart');
+    $(field[position]).focus()//.trigger('touchstart');
   }
   if (length == max && position == lastField) {
     $(this).blur();
     // $("button#reset").focus();
   }
+
+  if ($("#diameter" + numCompared).val() != "" && $("#diameter" + numCompared).val().length == $("#diameter" + numCompared).attr("maxlength")) {
+    $("#addTire").attr('disabled', false);
+  }
+
+  if ($("#diameter" + numCompared).val() == "") {
+    $("#addTire").attr('disabled', true);
+  } 
 });
 
-$('input[type=tel]').on('touchstart', function () {
-    $(field[position]).focus();
-});
+// $('form').on('touchstart', "input[type=tel]", function () {
+//     $(field[position]).focus();
+// });
 
 
 // This clears the input on focus and sets the position variable to the index of the current field that's focused
-$("input[type=tel]").on("focus", function(){
+$("form").on("focus", "input[type=tel]", function(){
   $(this).val('');
   var currentField = field.indexOf("#" + $(this).attr('id'));
   position = currentField;
 });
 
 //clears the input when you click
-$("input[type=tel]").on("click", function(){
+$("form").on("click", "input[type=tel]", function(){
   $(this).val('');
 });
 
-$("button#reset").click(function(){
-  $("input[type=tel]").val('');
+$("#controls").on("click", "#reset", function(){
+  $('form').empty();
+  addFields(generateFields(""));
+  addFields(generateFields(2));
+  field = ["#width", "#height", "#diameter", "#width2", "#height2", "#diameter2"];
+  numCompared = 2;
   $(field[0]).focus();
-  $("#reset").blur();
 });
 
-$("button#addTire").click(function(){
+$("#controls").on("click", "#addTire", function(){
   numCompared+=1;
 
   for(i=0; i< 3; i++) {
     field.push(types[i] + numCompared);
   }
 
-  console.log(field.length);
-  $(".form-group:nth-last-of-type(2)").after(generateFields(numCompared));
+  //console.log(field.length);
+  addFields(generateFields(numCompared));
+
+  $("#addTire").attr('disabled', true);
+
+  if ($("#diameter2").val() != "") {
+    $("#width" + numCompared).focus();
+  }
 });
 
-$("form").submit(function(event){
-  event.preventDefault();
-});
+// $("form").submit(function(event){
+//   event.preventDefault();
+// });
 
 
 function generateFields(num) {
   return "<div class=\"form-group col-lg-2 col-lg-offset-3 col-xs-4\"><label for=\"width" + num + "\">Width:</label><input type=\"tel\" class=\"form-control\" id=\"width" + num + "\" maxlength=\"3\" /></div><div class=\"form-group col-lg-2 col-xs-4\"><label for=\"height" + num + "\">Ratio:</label><input type=\"tel\" class=\"form-control\" id=\"height" + num + "\" maxlength=\"2\" /></div><div class=\"form-group col-lg-2 col-xs-4\"><label for=\"diameter" + num + "\">Diameter:</label><input type=\"tel\" class=\"form-control\" id=\"diameter" + num + "\" maxlength=\"2\" /></div>";
 }
 
+function addFields(input) {
+  $("form").append(input);
+}
 
 
 
