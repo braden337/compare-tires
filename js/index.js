@@ -22,18 +22,20 @@ $("form").on("keyup", "input[type=tel]", function(){
     // $("button#reset").focus();
   }
 
-  if ($("#diameter" + numCompared).val() != "" && $("#diameter" + numCompared).val().length == $("#diameter" + numCompared).attr("maxlength")) {
-    $("#addTire").attr('disabled', false);
+  var lastDiameter = $("#diameter" + numCompared);
+  if (lastDiameter.val() != "" && lastDiameter.val().length == lastDiameter.attr("maxlength")) {
+    enableAdd()
   }
 
-  if ($("#diameter" + numCompared).val() == "") {
-    $("#addTire").attr('disabled', true);
+  if (lastDiameter.val() == "") {
+    disableAdd()
   } 
 });
 
-// $('form').on('touchstart', "input[type=tel]", function () {
-//     $(field[position]).focus();
-// });
+$('form').on('touchstart', "input[type=tel]", function () {
+    $(this).focus();
+    // $(field[position]).focus();
+});
 
 
 // This clears the input on focus and sets the position variable to the index of the current field that's focused
@@ -44,9 +46,9 @@ $("form").on("focus", "input[type=tel]", function(){
 });
 
 //clears the input when you click
-$("form").on("click", "input[type=tel]", function(){
-  $(this).val('');
-});
+// $("form").on("click", "input[type=tel]", function(){
+//   $(this).val('');
+// });
 
 $("#controls").on("click", "#reset", function(){
   $('form').empty();
@@ -55,6 +57,7 @@ $("#controls").on("click", "#reset", function(){
   field = ["#width", "#height", "#diameter", "#width2", "#height2", "#diameter2"];
   numCompared = 2;
   $(field[0]).focus();
+  disableAdd();
 });
 
 $("#controls").on("click", "#addTire", function(){
@@ -67,7 +70,7 @@ $("#controls").on("click", "#addTire", function(){
   //console.log(field.length);
   addFields(generateFields(numCompared));
 
-  $("#addTire").attr('disabled', true);
+  disableAdd()
 
   if ($("#diameter2").val() != "") {
     $("#width" + numCompared).focus();
@@ -87,7 +90,13 @@ function addFields(input) {
   $("form").append(input);
 }
 
+function disableAdd() {
+  $("#addTire").attr('disabled', true);
+}
 
+function enableAdd() {
+  $("#addTire").attr('disabled', false);
+}
 
 // $(".form-group:nth-last-of-type(2)")
 
