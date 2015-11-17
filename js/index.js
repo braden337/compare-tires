@@ -33,8 +33,9 @@ $("form").on("keyup", "input[type=tel]", function(){
   }
 
   var lastDiameter = $("#diameter" + numCompared);
+  var lastVal = lastDiameter.val()
 
-  if (lastDiameter.val() != "" && lastDiameter.val().length == lastDiameter.attr("maxlength")) {
+  if (lastVal != "" && lastVal.length == lastDiameter.attr("maxlength")) {
     enableAdd();
   }
 
@@ -63,7 +64,8 @@ $("#controls").on("click", "#reset", function(){
   $('form').empty();
   addFields(generateFields(""));
   addFields(generateFields(2));
-  field = originalField;//["#width", "#height", "#diameter", "#width2", "#height2", "#diameter2"];
+  field = originalField;
+  //["#width", "#height", "#diameter", "#width2", "#height2", "#diameter2"];
   numCompared = 2;
   $(field[0]).focus();
   disableAdd();
@@ -100,7 +102,16 @@ $('#controls').on("click", "#removeTire", function() {
 /* --------- */
 
 function generateFields(num) {
-  return $("<div class=\"form-group col-lg-2 col-lg-offset-3 col-xs-4\"><label for=\"width" + num + "\">Width:</label><input type=\"tel\" class=\"form-control\" id=\"width" + num + "\" maxlength=\"3\" /></div><div class=\"form-group col-lg-2 col-xs-4\"><label for=\"height" + num + "\">Ratio:</label><input type=\"tel\" class=\"form-control\" id=\"height" + num + "\" maxlength=\"2\" /></div><div class=\"form-group col-lg-2 col-xs-4\"><label for=\"diameter" + num + "\">Diameter:</label><input type=\"tel\" class=\"form-control\" id=\"diameter" + num + "\" maxlength=\"2\" /></div>");
+  return $("<div class=\"form-group col-lg-2 col-lg-offset-3 col-xs-4\">
+    <label for=\"width" + num + "\">Width:</label>
+    <input type=\"tel\" class=\"form-control\" id=\"width" + num + "\" maxlength=\"3\" /></div>
+    <div class=\"form-group col-lg-2 col-xs-4\">
+    <label for=\"height" + num + "\">Ratio:</label>
+    <input type=\"tel\" class=\"form-control\" id=\"height" + num + "\" maxlength=\"2\" /></div>
+    <div class=\"form-group col-lg-2 col-xs-4\">
+    <label for=\"diameter" + num + "\">Diameter:</label>
+    <input type=\"tel\" class=\"form-control\" id=\"diameter" + num + "\" maxlength=\"2\" />
+    </div>");
 }
 
 function addFields(input) {
