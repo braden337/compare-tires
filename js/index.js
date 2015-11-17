@@ -92,8 +92,10 @@ $("#controls").on("click", "#addTire", function(){
 /* on click of remove tire button, remove last 
    set of 3 fields */
 $('#controls').on("click", "#removeTire", function() {
+  $("#width" + numCompared).remove();
+  $("#height" + numCompared).remove();
+  $("#diameter" + numCompared).remove();
   numCompared-=1;
-  // DO THIS NEXT
 });
 
 
