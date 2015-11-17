@@ -83,6 +83,7 @@ $("#controls").on("click", "#addTire", function(){
   addFields(generateFields(numCompared));
 
   disableAdd();
+  enableRemove();
 
   if ($("#diameter2").val() != "") {
     $("#width" + numCompared).focus();
@@ -92,8 +93,13 @@ $("#controls").on("click", "#addTire", function(){
 /* on click of remove tire button, remove last 
    set of 3 fields */
 $('#controls').on("click", "#removeTire", function() {
-  $("#tire" + numCompared).remove();
-  numCompared-=1;
+  if (numCompared > 1) {
+    $("#tire" + numCompared).remove();
+    numCompared-=1;
+  }
+  else {
+    disableRemove();
+  }
 });
 
 
