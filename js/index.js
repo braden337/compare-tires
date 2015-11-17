@@ -23,6 +23,8 @@ $("form").on("keyup", "input[type=tel]", function(){
   var max = $(this).attr("maxlength");
   var lastField = field.length-1;
   
+  console.log(position);
+  
   if (length == max && position < lastField) {
     position += 1;
     $(field[position]).focus(); //.trigger('touchstart');
@@ -93,15 +95,18 @@ $("#controls").on("click", "#addTire", function(){
 /* on click of remove tire button, remove last 
    set of 3 fields */
 $('#controls').on("click", "#removeTire", function() {
-  if (numCompared > 1) {
+  if (numCompared >= 3) {
     $("#tire" + numCompared).remove();
     numCompared-=1;
-  }
-  else {
-    disableRemove();
+    if (numCompared < 3) {
+      disableRemove();
+    }
   }
 });
 
+$("body").on("click", function() {
+  console.log(numCompared);
+});
 
   /* --------- */
  /* Functions */
