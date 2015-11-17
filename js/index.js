@@ -78,14 +78,20 @@ $("#controls").on("click", "#addTire", function(){
     field.push(idName[i] + numCompared);
   }
 
-  //console.log(field.length);
   addFields(generateFields(numCompared));
 
-  disableAdd()
+  disableAdd();
 
   if ($("#diameter2").val() != "") {
     $("#width" + numCompared).focus();
   }
+});
+
+/* on click of remove tire button, remove last 
+   set of 3 fields */
+$('#controls').on("click", "#removeTire", function() {
+  numCompared-=1;
+  // DO THIS NEXT
 });
 
 
@@ -107,4 +113,12 @@ function disableAdd() {
 
 function enableAdd() {
   $("#addTire").attr('disabled', false);
+}
+
+function disableRemove() {
+  $("#removeTire").attr('disabled', true);
+}
+
+function enableRemove() {
+  $("#removeTire").attr('disabled', false);
 }
