@@ -76,7 +76,7 @@ $("#controls").on("click", "#reset", function(){
 $("#controls").on("click", "#addTire", function(){
   numCompared+=1;
 
-  for(i=0; i< 3; i++) {
+  for(var i=0; i< 3; i++) {
     field.push(idName[i] + numCompared);
   }
 
@@ -92,9 +92,7 @@ $("#controls").on("click", "#addTire", function(){
 /* on click of remove tire button, remove last 
    set of 3 fields */
 $('#controls').on("click", "#removeTire", function() {
-  $("#width" + numCompared).remove();
-  $("#height" + numCompared).remove();
-  $("#diameter" + numCompared).remove();
+  $("#tire" + numCompared).remove();
   numCompared-=1;
 });
 
@@ -104,7 +102,7 @@ $('#controls').on("click", "#removeTire", function() {
 /* --------- */
 
 function generateFields(num) {
-  return $("<div class=\"form-group col-lg-2 col-lg-offset-3 col-xs-4\"><label for=\"width" + num + "\">Width:</label><input type=\"tel\" class=\"form-control\" id=\"width" + num + "\" maxlength=\"3\" /></div><div class=\"form-group col-lg-2 col-xs-4\"><label for=\"height" + num + "\">Ratio:</label><input type=\"tel\" class=\"form-control\" id=\"height" + num + "\" maxlength=\"2\" /></div><div class=\"form-group col-lg-2 col-xs-4\"><label for=\"diameter" + num + "\">Diameter:</label><input type=\"tel\" class=\"form-control\" id=\"diameter" + num + "\" maxlength=\"2\" /></div>");
+  return $("<div id=\"tire" + num + "\"><div class=\"form-group col-lg-2 col-lg-offset-3 col-xs-4\"><label for=\"width" + num + "\">Width:</label><input type=\"tel\" class=\"form-control\" id=\"width" + num + "\" maxlength=\"3\" /></div><div class=\"form-group col-lg-2 col-xs-4\"><label for=\"height" + num + "\">Ratio:</label><input type=\"tel\" class=\"form-control\" id=\"height" + num + "\" maxlength=\"2\" /></div><div class=\"form-group col-lg-2 col-xs-4\"><label for=\"diameter" + num + "\">Diameter:</label><input type=\"tel\" class=\"form-control\" id=\"diameter" + num + "\" maxlength=\"2\" /></div></div>");
 }
 
 function addFields(input) {
