@@ -76,7 +76,7 @@ $("#controls").on("click", "#reset", function(){
 /* on click of add tire button, insert a set of
    3 fields in the end of the form tag */
 $("#controls").on("click", "#addTire", function(){
-  numCompared+=1;
+  numCompared += 1;
 
   for(var i=0; i< 3; i++) {
     field.push(idName[i] + numCompared);
@@ -97,7 +97,12 @@ $("#controls").on("click", "#addTire", function(){
 $('#controls').on("click", "#removeTire", function() {
   if (numCompared >= 3) {
     $("#tire" + numCompared).remove();
-    numCompared-=1;
+    numCompared -= 1;
+    
+    for(var i=0; i< 3; i++) {
+      field.pop(idName[i] + numCompared);
+    }
+    
     if (numCompared < 3) {
       disableRemove();
     }
